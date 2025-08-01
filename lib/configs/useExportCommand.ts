@@ -3,15 +3,19 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { getNextronConfig } from './getNextronConfig'
+import { loadScriptFile } from './typescriptLoader'
 import * as logger from '../logger'
 
 const cwd = process.cwd()
 const pkgPath = path.join(cwd, 'package.json')
-const nextConfigPath = path.join(
-  cwd,
-  getNextronConfig().rendererSrcDir || 'renderer',
-  'next.config.js'
-)
+const rendererSrcDir = getNextronConfig().rendererSrcDir || 'renderer'
+const nextConfigPath = (() => {
+  if (fs.existsSync(path.join(cwd, 'next.config.ts')))
+    return path.join(cwd, 'next.config.ts')
+  if (fs.existsSync(path.join(cwd, rendererSrcDir, 'next.config.ts')))
+    return path.join(cwd, rendererSrcDir, 'next.config.ts')
+  return path.join(cwd, rendererSrcDir, 'next.config.js')
+})()
 
 export const useExportCommand = async (): Promise<boolean> => {
   const { dependencies, devDependencies } = await fs.readJSON(pkgPath)
@@ -40,7 +44,7 @@ export const useExportCommand = async (): Promise<boolean> => {
     return true
   }
   if (majorVersion === 13) {
-    const { output, distDir } = require(nextConfigPath)
+    const { output, distDir } = await loadScriptFile(nextConfigPath)
     if (output === 'export') {
       if (distDir !== '../app') {
         logger.error(
@@ -53,7 +57,7 @@ export const useExportCommand = async (): Promise<boolean> => {
     return true
   }
   if (majorVersion > 13) {
-    const { output, distDir } = require(nextConfigPath)
+    const { output, distDir } = await loadScriptFile(nextConfigPath)
     if (output !== 'export') {
       logger.error(
         'We must export static files so as Electron can handle them. Please set next.config.js#output to "export".'

@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 
+const cwd = process.cwd()
+
 export const getNextronConfig = () => {
-  const nextronConfigPath = path.join(process.cwd(), 'nextron.config.js')
-  if (fs.existsSync(nextronConfigPath)) {
-    return require(nextronConfigPath)
-  } else {
-    return {}
-  }
+  if (fs.existsSync(path.join(cwd, 'nextron.config.js')))
+    return require(path.join(cwd, 'nextron.config.js'))
+  if (fs.existsSync(path.join(cwd, 'nextron.config.ts')))
+    return require(path.join(cwd, 'nextron.config.ts'))
+  return {}
 }
