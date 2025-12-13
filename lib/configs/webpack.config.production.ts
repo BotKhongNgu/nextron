@@ -3,7 +3,6 @@ import { merge } from 'webpack-merge'
 import TerserPlugin from 'terser-webpack-plugin'
 import { getBaseConfig } from './webpack.config.base'
 import { getNextronConfig } from './getNextronConfig'
-
 ;(async () => {
   const { webpack: userWebpack } = await getNextronConfig()
 
@@ -30,18 +29,18 @@ import { getNextronConfig } from './getNextronConfig'
   })
 
   if (typeof userWebpack === 'function') {
-    config = userWebpack(config, 'development');
+    config = userWebpack(config, 'development')
   }
 
   const compiler = webpack(config)
 
   compiler.run((error, stats) => {
     if (error) {
-      console.error(error.stack || error);
+      console.error(error.stack || error)
     }
 
     if (stats) {
-      console.log(stats.toString());
+      console.log(stats.toString())
     }
   })
 })()

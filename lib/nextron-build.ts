@@ -23,7 +23,7 @@ const args = arg({
 
 const cwd = process.cwd()
 const appDir = path.join(cwd, 'app')
-const distDir = path.join(cwd, 'dist');
+const distDir = path.join(cwd, 'dist')
 const execaOptions: execa.Options = {
   cwd,
   stdio: 'inherit',

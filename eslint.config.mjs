@@ -74,6 +74,8 @@ const config = [
       ...typescript.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
       '@next/next/no-html-link-for-pages': 'off',
     },
   },

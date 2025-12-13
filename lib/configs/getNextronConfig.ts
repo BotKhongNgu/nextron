@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { loadScriptFile } from './typescriptLoader'
-import type { Configuration } from '../../types';
+import type { Configuration } from '../../types'
 
 const cwd = process.cwd()
 

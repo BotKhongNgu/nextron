@@ -40,8 +40,7 @@ if (args['--inspect']) {
   process.exit(1)
 }
 
-
-const rendererPort = args['--renderer-port'] || 8888;
+const rendererPort = args['--renderer-port'] || 8888
 let electronOptions = args['--electron-options'] || ''
 if (!electronOptions.includes('--remote-debugging-port')) {
   electronOptions += ' --remote-debugging-port=5858'
@@ -57,7 +56,7 @@ const execaOptions: execa.Options = {
 }
 
 ;(async () => {
-  const nextronConfig = await getNextronConfig();
+  const nextronConfig = await getNextronConfig()
   const startupDelay =
     nextronConfig.startupDelay || args['--startup-delay'] || 10_000
 
@@ -89,7 +88,11 @@ const execaOptions: execa.Options = {
     )
     const child = execa(
       'next',
-      ['-p', rendererPort.toString(), nextronConfig.rendererSrcDir || 'renderer'],
+      [
+        '-p',
+        rendererPort.toString(),
+        nextronConfig.rendererSrcDir || 'renderer',
+      ],
       execaOptions
     )
     child.on('close', () => {

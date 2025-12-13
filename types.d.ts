@@ -1,6 +1,6 @@
-declare module 'nextron';
+declare module 'nextron'
 
-import type { Configuration as WebpackConfiguration } from "webpack";
+import type { Configuration as WebpackConfiguration } from 'webpack'
 
 /**
  * The configuration interface for nextron.
@@ -9,17 +9,17 @@ export declare interface Configuration {
   /**
    * Specify an alternate main src directory, defaults to 'main'.
    */
-  rendererSrcDir?: string;
+  rendererSrcDir?: string
 
   /**
    * Specify an alternate renderer src directory, defaults to 'renderer'.
    */
-  mainSrcDir?: string;
+  mainSrcDir?: string
 
   /**
    * Specify a startup delay in milliseconds to retry to test if the debugger port is open, defaults to '10000'.
    */
-  startupDelay?: number;
+  startupDelay?: number
 
   /**
    * Override for the main process's webpack
@@ -27,5 +27,8 @@ export declare interface Configuration {
    * @param {'development'|'production'} mode A string specifying the build mode of the program.
    * @returns {import('webpack').Configuration} Returns an instance of the final configuration instance.
    */
-  webpack?: (config: WebpackConfiguration, mode: 'development' | 'production') => WebpackConfiguration;
+  webpack?: (
+    config: WebpackConfiguration,
+    mode: 'development' | 'production'
+  ) => WebpackConfiguration
 }

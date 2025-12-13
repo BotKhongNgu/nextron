@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 import fs from 'fs'
 import path from 'path'
 import webpack from 'webpack'
@@ -14,7 +12,11 @@ const externals = require(path.join(cwd, 'package.json')).dependencies
 
 const getBaseConfig = async () => {
   const { mainSrcDir } = await getNextronConfig()
-  const backgroundPath = path.join(cwd, mainSrcDir || 'main', `background${ext}`)
+  const backgroundPath = path.join(
+    cwd,
+    mainSrcDir || 'main',
+    `background${ext}`
+  )
   const preloadPath = path.join(cwd, mainSrcDir || 'main', `preload${ext}`)
 
   const entry: webpack.Configuration['entry'] = {
