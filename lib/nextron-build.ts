@@ -24,13 +24,13 @@ const args = arg({
 const cwd = process.cwd()
 const appDir = path.join(cwd, 'app')
 const distDir = path.join(cwd, 'dist')
-const rendererSrcDir = getNextronConfig().rendererSrcDir || 'renderer'
 const execaOptions: execa.Options = {
   cwd,
   stdio: 'inherit',
 }
 
 ;(async () => {
+  const rendererSrcDir = (await getNextronConfig()).rendererSrcDir || 'renderer'
   // Ignore missing dependencies
   process.env.ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES = 'true'
 
